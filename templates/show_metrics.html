@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Metrics</title>
+    <style>
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .row {
+        height: 100vh;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .col {
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .chart-container {
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        flex-direction: column;
+      }
+
+      .chart-title {
+        font-size: 24px;
+      }
+
+      .dough-nut-chart {
+        margin-top: 50px;
+        height: 100%;
+        width: 100%;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+      }
+
+      .row-2 {
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .row-2 h3 {
+        font-size: 32px;
+        padding-bottom: 30px;
+        text-decoration: underline;
+      }
+
+      .clf-report {
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      table {
+        border-collapse: collapse;
+        border: 5px solid black;
+        box-shadow: 7px 7px 0 black;
+      }
+
+      th,
+      td {
+        border: 3px solid black;
+        font-size: 20px;
+        padding: 20px 30px;
+        text-align: center;
+      }
+
+      tbody tr:nth-child(even) {
+        background: rgba(255, 166, 0, 0.1);
+      }
+
+      tbody tr:nth-child(even):hover {
+        background: rgba(255, 166, 0, 0.2);
+      }
+
+      tbody tr:nth-child(odd) {
+        background: rgba(0, 255, 128, 0.1);
+      }
+
+      tbody tr:nth-child(odd):hover {
+        background: rgba(0, 255, 128, 0.2);
+      }
+
+      .row-3 {
+        flex-direction: column;
+      }
+
+      .row-3 h3 {
+        font-size: 32px;
+        padding: 50px 0;
+        text-decoration: underline;
+      }
+
+      .row-3 .chart-container {
+        width: 100%;
+        height: 100%;
+      }
+
+      #heatmap {
+        height: 100%;
+        width: 70%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row row-1 flex">
+        <div class="col col-1 flex">
+          <div class="chart-container flex">
+            <h3 class="chart-title">Accuracy</h3>
+            <canvas class="dough-nut-chart dough-nut-chart-1"></canvas>
+          </div>
+        </div>
+        <div class="col col-2 flex">
+          <div class="chart-container flex">
+            <h3 class="chart-title">Precision</h3>
+            <canvas class="dough-nut-chart dough-nut-chart-2"></canvas>
+          </div>
+        </div>
+        <div class="col col-3 flex">
+          <div class="chart-container flex">
+            <h3 class="chart-title">Recall</h3>
+            <canvas class="dough-nut-chart dough-nut-chart-3"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="row row-2 flex">
+        <h3>Classification Report</h3>
+        <div class="clf-report flex">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1 Score</th>
+                <th>Support</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>AD (0)</th>
+                <td>0.96</td>
+                <td>0.97</td>
+                <td>0.96</td>
+                <td>1058</td>
+              </tr>
+              <tr>
+                <th>CI (1)</th>
+                <td>0.97</td>
+                <td>0.97</td>
+                <td>0.97</td>
+                <td>848</td>
+              </tr>
+              <tr>
+                <th>CN (2)</th>
+                <td>0.99</td>
+                <td>0.99</td>
+                <td>0.99</td>
+                <td>1568</td>
+              </tr>
+              <tr>
+                <th>Macro Avg</th>
+                <td>0.97</td>
+                <td>0.97</td>
+                <td>0.97</td>
+                <td>3474</td>
+              </tr>
+              <tr>
+                <th>Weighted Avg</th>
+                <td>0.97</td>
+                <td>0.97</td>
+                <td>0.97</td>
+                <td>3474</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row row-3 flex">
+        <h3>Confusion Matrix</h3>
+        <div class="chart-container flex">
+          <div id="heatmap"></div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-heatmap.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+      const chartData1 = {
+        labels: ["Accuracy"],
+        data_: [0.9746689694876224 * 100, 0.025331030512377617 * 100],
+      };
+      const chartData2 = {
+        labels: ["Precision"],
+        data_: [0.9747418777495865 * 100, 0.02525812225041346 * 100],
+      };
+      const chartData3 = {
+        labels: ["Recall"],
+        data_: [0.9746689694876224 * 100, 0.025331030512377617 * 100],
+      };
+
+      const getChartDataObj = (
+        labels_,
+        data_,
+        backgroundColors_ = ["springgreen", "magenta"]
+      ) => {
+        const chartDataObj = {
+          type: "doughnut",
+          data: {
+            labels: labels_,
+            datasets: [
+              {
+                label: "   ",
+                data: data_,
+                hoverOffset: 10,
+                backgroundColor: backgroundColors_,
+              },
+            ],
+          },
+          options: {
+            responsive: false,
+            borderWidth: 10,
+            borderRadius: 2,
+            hoverBorderWidth: 0,
+          },
+        };
+        return chartDataObj;
+      };
+
+      const chrt1 = document
+        .querySelector(".dough-nut-chart-1")
+        .getContext("2d");
+      const chartId1 = new Chart(
+        chrt1,
+        getChartDataObj(
+          (labels_ = chartData1.labels),
+          (data_ = chartData1.data_)
+        )
+      );
+
+      const chrt2 = document
+        .querySelector(".dough-nut-chart-2")
+        .getContext("2d");
+      const chartId2 = new Chart(
+        chrt2,
+        getChartDataObj(
+          (labels_ = chartData2.labels),
+          (data_ = chartData2.data_),
+          (backgroundColors_ = ["purple", "red"])
+        )
+      );
+
+      const chrt3 = document
+        .querySelector(".dough-nut-chart-3")
+        .getContext("2d");
+      const chartId3 = new Chart(
+        chrt3,
+        getChartDataObj(
+          (labels_ = chartData3.labels),
+          (data_ = chartData3.data_),
+          (backgroundColors_ = ["orange", "dodgerblue"])
+        )
+      );
+
+      anychart.onDocumentReady(() => {
+        const data = [
+          { x: "0", y: "0", heat: 1000 },
+          { x: "0", y: "1", heat: 25 },
+          { x: "0", y: "2", heat: 19 },
+          { x: "1", y: "0", heat: 25 },
+          { x: "1", y: "1", heat: 820 },
+          { x: "1", y: "2", heat: 4 },
+          { x: "2", y: "0", heat: 11 },
+          { x: "2", y: "1", heat: 4 },
+          { x: "2", y: "2", heat: 1500 },
+        ];
+        chart = anychart.heatMap(data);
+        chart.title("Predicted vs Actual");
+        const customColorScale = anychart.scales.linearColor();
+        customColorScale.colors(["orange", "red"]);
+        chart.colorScale(customColorScale);
+        chart.container("heatmap");
+        chart.draw();
+      });
+    </script>
+  </body>
+</html>
