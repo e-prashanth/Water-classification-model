@@ -3,7 +3,9 @@
       {
         "src": "app.py",
         "use": "@vercel/python",
-        "config": { "runtime": "python3.11" }
+        "config": {
+          "buildCommand": "pip install setuptools && pip install -r requirements.txt"
+        }
       }
     ]
   }
